@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Multiple Visualisations | An Example</title>
+  <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+  <!-- Import pure.css -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+    integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+  <!-- CSS file -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+
+
+</head>
+
+<body>
+
+  <div class="page">
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <h1>Quality of life globally</h1>
+        <p>This visualization aims to identify the overall quality of life globally by gathering information related to their economic well-being, healthcare, environmental factors, and education. By creating data visualizations, readers will be able to identify areas where target users can intervene to possibly improve the overall standard of living for certain countries.</p>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+        <div class="pure-u-1-1">
+          <h2>Standard of Living - (World data)</h2>
+          <p>Take a look at the world data including infant mortality, GDP per capita, and life expectancy for different countries.</p>
+          <div>
+            <label for="data-dropdown">Select Data:</label>
+            <select id="data-dropdown" onchange="updateMap(this.value)">
+              <option value="Infant_mortality">Infant mortality</option>
+              <option value="GDP_per_cap">GDP per capita</option>
+              <option value="Life_expectancy">Life expectancy</option>
+            </select>
+          </div>
+          <div>
+            <div id="vis" class="vis-container"></div>
+          </div>
+        </div>
+      </div>
+      <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+        <div class="pure-u-2-3">
+          <div id="vis3" class="vis-container"></div>
+        </div>
+        <div class="pure-u-1-3">
+          <div class="description description-right">
+            <h2>Healthcare</h2>
+            <h3>Life expectancy (2000-2015)</h3>
+            <p>Here we compare the life expectancy of the top 5 countries with the largest population between the year 2000 and 2015. From here we can notice that over the years, all countries has improved the life expectancy and United States has the best life expectancy overall. </p>
+          </div>
+        </div>
+  
+    </div>
+      <!-- end pure grid group -->
+
+      <!-- pure grid group -->
+      <div class="pure-g">
+        <div class="pure-u-1-1">
+            <h2>Economic well-being</h2>
+            <h3>Life ladder and GDP per capita (per 10,000 units)</h3>
+            <p>Lets now take a look at the economic well being of the world. Here we will be looking at the relationship between countries' life ladder and their GDP per capita (per 10,000). The life ladder is a scale from 0 to 10 where people rate their current life satisfaction and overall happiness within a society where as GDP per capita is the average economic output per person in a country that supports a nation's standard of living and economic development.</p>
+
+            <p>As we can see from this graph, over the years, Finland has the best overall GDP per capita and life ladder compared to other countries.</p>
+        </div>
+        <div class="pure-u-1-1"><div id="vis4" class="vis-container"></div></div>
+      </div>
+      <!-- end pure grid group -->
+
+      <!-- pure grid group -->
+      <div class="pure-g">
+        <div class="pure-u-1-3" >
+          <div class="description description-left">
+            <h2>Environmental factors</h2>
+            <h3>CO2 emission (million tons per capita)</h3>
+            <p>Here we take a look at the top 8 countries with the highest C02 emission (million tons per capita) where each bubble represents the amount of C02 emission being released for each country. From here we can see that the top three countries are China, United States of America, and Russia. This indicates that these countries should set strong environmental policies, regulations, and efforts to mitigate emissions as detrimental effects could be applied to climate change.
+            </p>
+          </div>
+        </div>
+        <div class="pure-u-2-3">
+          <div id="vis5" class="vis-container"></div>
+        </div>
+    </div>
+      <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+        <div class="pure-u-2-3">
+          <div id="vis6" class="vis-container"></div>
+        </div>
+        <div class="pure-u-1-3">
+          <div class="description description-right">
+            <h2>Education</h2>
+            <h3>Average school years (Regional)</h3>
+            <p>This visualization displays the average school years between different regions. From here we notice that the European Union, Rest of Europe, and North America all have close and the highest average school years compared to other regions. Africa shows the lowest average school years, which indicates higher education expenditure should be allocated for this region.</p>
+          </div>
+        </div>
+  
+    </div>
+      <!-- end pure grid group -->
+
+    <script type="text/javascript">
+        var specVis1 = "./radial.json";
+        var specVis2 = "./map.json";
+        var specVis3 = "./layer_ranged.json";
+        var specVis4 = "./scatter.json";
+        var specVis5 = "./bump.json";
+        var specVis6 = "./line.json";
+
+        vegaEmbed('#vis1', specVis1, { "actions": false });
+        // vegaEmbed('#vis2', specVis2, { "actions": false });
+        vegaEmbed("#vis3", specVis3, { "actions": false });
+        vegaEmbed("#vis4", specVis4, { "actions": false });
+        vegaEmbed("#vis5", specVis5, { "actions": false });
+        vegaEmbed("#vis6", specVis6, { "actions": false });
+
+        let selectedData = 'Infant_mortality';  // Default selected data
+
+        function updateMap(selectedValue) {
+  // Default selected data to "Population"
+  selectedData = selectedValue || 'Infant_mortality';
+
+  let annotations = [];
+  let tooltipFields = [{"field": "properties.NAME", "type": "nominal", "title": "Country"}];
+
+    if (selectedData === 'Infant_mortality') {
+    tooltipFields.push({"field": "absData", "type": "quantitative", "title": "Infant mortality rate"});
+    } else if (selectedData === 'GDP_per_cap') {
+    tooltipFields.push({"field": "absData", "type": "quantitative", "title": "GDP per capita"});
+    } else if (selectedData === 'Life_expectancy') {
+    tooltipFields.push({"field": "absData", "type": "quantitative", "title": "Life Expectancy"});
+    }
+
+  const updatedSpec = {
+    ...spec,
+    layer: [
+      ...spec.layer.slice(0, 3),
+      {
+        ...spec.layer[3],
+        transform: [
+          {
+            "lookup": "properties.NAME",
+            "from": {
+              "data": {
+                "url": "world-data-2023.csv"
+              },
+              "key": "Country",
+              "fields": [selectedData]
+            }
+          },
+          {
+            "calculate": `datum.${selectedData}`,
+            "as": "absData"
+          }
+        ],
+        encoding: {
+          ...spec.layer[3].encoding,
+          color: {
+            ...spec.layer[3].encoding.color,
+            field: "absData",
+            legend: { "title": check(selectedData) }
+          },
+          tooltip: tooltipFields
+        }
+      },
+      {
+        "data": {
+          "values": annotations,
+          "format": { "type": "json" }
+        },
+        "mark": { "type": "text", "fontSize": 14, "fontWeight": "bold", "dy": -10 },
+        "encoding": {
+          "latitude": { "field": "latitude", "type": "quantitative" },
+          "longitude": { "field": "longitude", "type": "quantitative" },
+          "text": { "field": "name", "type": "nominal" }
+        }
+      }
+    ]
+  };
+
+  vegaEmbed("#vis", updatedSpec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+}
+
+    function check(selectedData) {
+    if (selectedData === "Infant_mortality") {
+        return "Infant mortality rate (%)";
+    } else if (selectedData === "GDP_per_cap") {
+        return "GDP per capita";
+    } else if (selectedData === "Life_expectancy") {
+        return "Life Expectancy";
+    } else {
+        return "Infant mortality rate (%)";
+    }
+    }
+
+    const spec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "World data (2023)",
+  "background": "#f2ebe9",
+  "width": "container",
+  "height": 400,
+    "autosize": "fit",
+  "data": {
+    "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+  },
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "transform": [
+        {
+          "calculate": "'Data is not available in ' + datum.properties.NAME",
+          "as": "note"
+        }
+      ],
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+      "encoding": {"tooltip": {"field": "note"}}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson",
+        "format": {"type": "topojson", "feature": "oceans"}
+      },
+      "mark": {"type": "geoshape", "fill": "skyblue"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/js/WorldMapWithGraticules.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
+    },
+    {
+      "transform": [
+        {
+          "lookup": "properties.NAME",
+          "from": {
+            "data": {
+              "url": "world-data-2023.csv"
+            },
+            "key": "Country",
+            "fields": ["Infant_mortality", "GDP_per_cap", "Life_expectancy"]
+          }
+        },
+        {
+          "calculate": "datum.Infant_mortality",
+          "as": "absGDP"
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "white"},
+      "encoding": {
+        "color": {
+          "field": "absGDP",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {"field": "properties.NAME", "type": "nominal", "title": "Country"}
+        ]
+      }
+    }
+  ],
+  "config": {}
+};
+
+    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+    updateMap();
+    </script>
+
+</body>

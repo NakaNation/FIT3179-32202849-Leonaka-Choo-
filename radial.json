@@ -1,0 +1,65 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "A simple radial chart with GDP per capita data for the top 5 countries.",
+    "width": 200,
+    "height": 200,
+    "data": {
+        "url": "who_data.csv"
+    },
+    "params": [
+        {
+        "name": "Country_selection",
+        "bind": {
+            "input": "select",
+            "options": [
+            null,
+            "Luxembourg",
+            "Switzerland",
+            "Norway",
+            "Ireland",
+            "United States"
+            ],
+            "labels":[
+            "Show All",
+            "Luxembourg",
+            "Switzerland",
+            "Norway",
+            "Ireland",
+            "United States"
+            ],
+            "name": "Country Selection: "
+            }
+        }
+    ],
+    "transform": [
+    {
+        "filter": {
+            "field": "Country",
+            "oneOf": ["Luxembourg", "Switzerland", "Norway", "Ireland", "United States"]
+        }
+    },
+    {
+        "filter": {
+            "field": "Year",
+            "oneOf": [2015]
+        }
+    },
+    {"filter": "Country_selection == null || datum.Country == Country_selection"}
+    ],
+
+    "layer": [{
+        "mark": {"type": "arc", "innerRadius": 20, "stroke": "#fff"}
+    },{
+        "mark": {"type": "text", "radiusOffset": 10},
+        "encoding": {
+            "text": {"field": "GDP_per_capita", "type": "quantitative"}
+        }
+    }],
+    "encoding": {
+        "theta": {"field": "GDP_per_capita", "type": "quantitative", "stack": true},
+        "radius": {"field": "GDP_per_capita", "scale": {"type": "sqrt", "zero": true, "rangeMin": 20}},
+        "color": {"field": "Country", "type": "nominal"},
+        "tooltip": [{"field": "Country", "type": "nominal"}, {"field": "GDP_per_capita", "type": "nominal"}]
+    },
+    "config": {}
+}
